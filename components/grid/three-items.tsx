@@ -12,6 +12,7 @@ function ThreeItemGridItem({
   size: 'full' | 'half';
   priority?: boolean;
 }) {
+  console.log(item);
   return (
     <div
       className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
