@@ -23,10 +23,12 @@ export default async function Page({ params }: { params: { id: string } }) {
   const article = await getArticle(id);
   if (!article) return notFound();
   console.log(article);
-
+  const publishedAt = new Date(article.publishedAt);
+  const date = publishedAt.toLocaleDateString();
   return (
     <>
-      <h1>{article.title}</h1>
+      <h1 className="text-4xl">{article.title}</h1>
+      <p>{date}</p>
       <figure className="mt-10">
         <img src={article.image.url} alt={article.title} className="w-full" />
       </figure>
