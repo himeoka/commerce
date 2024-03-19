@@ -24,7 +24,6 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { blog: string } }) {
   const blog = await getBlog(params.blog);
   if (!blog) return notFound();
-  console.log(blog.articles.edges);
 
   return (
     <>
@@ -66,7 +65,7 @@ export default async function Page({ params }: { params: { blog: string } }) {
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                       strokeWidth="2"
                       d="M1 5h12m0 0L9 1m4 4L9 9"
                     />
