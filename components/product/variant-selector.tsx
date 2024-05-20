@@ -37,7 +37,6 @@ export function VariantSelector({
       {}
     )
   }));
-
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>

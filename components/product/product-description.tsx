@@ -5,6 +5,7 @@ import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
+  console.log(product.variants);
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
@@ -12,6 +13,7 @@ export function ProductDescription({ product }: { product: Product }) {
         <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
           <Price
             amount={product.priceRange.maxVariantPrice.amount}
+            minAmount={product.priceRange.minVariantPrice.amount}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
           />
         </div>

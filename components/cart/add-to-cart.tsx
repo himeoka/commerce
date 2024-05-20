@@ -72,6 +72,7 @@ export function AddToCart({
 }) {
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
+  const defaultVariant = variants.length === 1 ? variants[0] : undefined;
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const variant = variants.find((variant: ProductVariant) =>
     variant.selectedOptions.every(
@@ -80,9 +81,38 @@ export function AddToCart({
   );
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, selectedVariantId);
-
   return (
     <form action={actionWithVariant}>
+      {variant && (
+        <p className="mb-5">
+          {variant.title}
+          {`${new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: variant.price.currencyCode,
+            currencyDisplay: 'narrowSymbol'
+          }).format(parseFloat(variant.price.amount))}`}
+          {variant.compareAtPrice && variant.compareAtPrice.amount !== variant.price.amount && (
+            <span className="ml-5">
+              割引前価格 :
+              {`${new Intl.NumberFormat(undefined, {
+                style: 'currency',
+                currency: variant.compareAtPrice.currencyCode,
+                currencyDisplay: 'narrowSymbol'
+              }).format(parseFloat(variant.compareAtPrice.amount))}`}
+            </span>
+          )}
+        </p>
+      )}
+      {defaultVariant && defaultVariant.compareAtPrice && (
+        <p className="mb-5">
+          割引前価格 :
+          {`${new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: defaultVariant.compareAtPrice.currencyCode,
+            currencyDisplay: 'narrowSymbol'
+          }).format(parseFloat(defaultVariant.compareAtPrice.amount))}`}
+        </p>
+      )}
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
