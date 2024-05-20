@@ -126,7 +126,7 @@ async function RelatedProducts({ id }: { id: string }) {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  minAmount: product.priceRange.maxVariantPrice.amount,
+                  minAmount: product.priceRange.minVariantPrice.amount,
                   amount: product.priceRange.maxVariantPrice.amount,
                   currencyCode: product.priceRange.maxVariantPrice.currencyCode
                 }}

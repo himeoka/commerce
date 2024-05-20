@@ -25,6 +25,7 @@ export async function Carousel() {
                 label={{
                   title: product.title,
                   amount: product.priceRange.maxVariantPrice.amount,
+                  minAmount: product.priceRange.minVariantPrice.amount,
                   currencyCode: product.priceRange.maxVariantPrice.currencyCode
                 }}
                 src={product.featuredImage?.url}
