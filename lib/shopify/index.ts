@@ -6,6 +6,7 @@ import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   addToCartMutation,
+  cartAttributesUpdateMutation,
   createCartMutation,
   editCartItemsMutation,
   removeFromCartMutation
@@ -40,6 +41,7 @@ import {
   ShopifyBlogOperation,
   ShopifyBlogsOperation,
   ShopifyCart,
+  ShopifyCartAttributesUpdateOperation,
   ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
@@ -259,6 +261,22 @@ export async function updateCart(
   });
 
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
+}
+
+export async function updateCartAttributes(
+  cartId: string,
+  attributes: { key: string; value: string }[]
+): Promise<Cart> {
+  const res = await shopifyFetch<ShopifyCartAttributesUpdateOperation>({
+    query: cartAttributesUpdateMutation,
+    variables: {
+      cartId,
+      attributes
+    },
+    cache: 'no-store'
+  });
+
+  return reshapeCart(res.body.data.cartAttributesUpdate.cart);
 }
 
 export async function getCart(cartId: string): Promise<Cart | undefined> {
