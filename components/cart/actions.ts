@@ -26,10 +26,20 @@ export async function updateCartNote(prevState: any, attributes: { key: string; 
     return 'Error Update Cart Note';
   }
 }
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+export async function addItem(
+  prevState: any,
+  payload: {
+    selectedVariantId: string | undefined;
+    attributes:
+      | {
+          key: string;
+          value: string;
+        }[]
+      | undefined;
+  }
+) {
   let cartId = cookies().get('cartId')?.value;
   let cart;
-
   if (cartId) {
     cart = await getCart(cartId);
   }
@@ -39,13 +49,14 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
     cartId = cart.id;
     cookies().set('cartId', cartId);
   }
+  const { selectedVariantId, attributes } = payload;
 
   if (!selectedVariantId) {
     return 'Missing product variant ID';
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1, attributes }]);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';

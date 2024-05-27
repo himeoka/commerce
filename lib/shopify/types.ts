@@ -18,6 +18,12 @@ export type CartItem = {
   cost: {
     totalAmount: Money;
   };
+  attributes:
+    | {
+        key: string;
+        value: string;
+      }[]
+    | undefined;
   merchandise: {
     id: string;
     title: string;

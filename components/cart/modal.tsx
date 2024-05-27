@@ -21,6 +21,7 @@ type MerchandiseSearchParams = {
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
   if (cart) {
+    console.log(cart);
   }
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);

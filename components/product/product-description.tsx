@@ -5,7 +5,6 @@ import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
-  console.log(product.variants);
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
@@ -17,6 +16,13 @@ export function ProductDescription({ product }: { product: Product }) {
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
           />
         </div>
+        <div className="mt-5">
+          {product.tags.map((tag, i) => (
+            <span key={i} className="mr-1">
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
       <VariantSelector options={product.options} variants={product.variants} />
 
@@ -27,7 +33,11 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
-      <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+      <AddToCart
+        variants={product.variants}
+        availableForSale={product.availableForSale}
+        tags={product.tags}
+      />
     </>
   );
 }
