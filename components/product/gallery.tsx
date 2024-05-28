@@ -87,6 +87,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                     width={80}
                     height={80}
                     active={isActive}
+                    isReserve={false}
+                    availableForSale={true}
                   />
                 </Link>
               </li>
