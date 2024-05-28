@@ -6,10 +6,14 @@ export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  isReserve,
+  availableForSale,
   ...props
 }: {
   isInteractive?: boolean;
   active?: boolean;
+  isReserve: boolean;
+  availableForSale: boolean;
   label?: {
     title: string;
     amount: string;
@@ -29,6 +33,14 @@ export function GridTileImage({
         }
       )}
     >
+      {isReserve ? (
+        <div className="absolute right-0 top-0 z-10 bg-black px-5 text-sm text-white">Reserve</div>
+      ) : null}
+      {!availableForSale ? (
+        <div className="absolute right-0 top-0 z-10 bg-black px-5 text-sm text-white">
+          Out of Stock
+        </div>
+      ) : null}
       {props.src ? (
         // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
         <Image

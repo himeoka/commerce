@@ -25,6 +25,8 @@ function ThreeItemGridItem({
           }
           priority={priority}
           alt={item.title}
+          isReserve={item.tags.includes('予約') ? true : false}
+          availableForSale={item.availableForSale}
           label={{
             position: size === 'full' ? 'center' : 'bottom',
             title: item.title as string,

@@ -154,6 +154,10 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+  metafield: {
+    key: string;
+    value: string;
+  };
 };
 
 export type ShopifyCartOperation = {

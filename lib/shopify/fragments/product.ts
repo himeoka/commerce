@@ -60,6 +60,10 @@ const productFragment = /* GraphQL */ `
     }
     tags
     updatedAt
+    metafield(namespace: "custom", key: "template_type") {
+      key
+      value
+    }
   }
   ${imageFragment}
   ${seoFragment}

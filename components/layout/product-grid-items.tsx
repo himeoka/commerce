@@ -4,7 +4,6 @@ import { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 
 export default function ProductGridItems({ products }: { products: Product[] }) {
-  console.log(products);
   return (
     <>
       {products.map((product) => (
@@ -18,6 +17,8 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
                 amount: product.priceRange.maxVariantPrice.amount,
                 currencyCode: product.priceRange.maxVariantPrice.currencyCode
               }}
+              isReserve={product.tags.includes('予約') ? true : false}
+              availableForSale={product.availableForSale}
               src={product.featuredImage?.url}
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
