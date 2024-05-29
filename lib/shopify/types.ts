@@ -154,7 +154,11 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
-  metafield: {
+  template_type?: {
+    key: string;
+    value: string;
+  };
+  related_products?: {
     key: string;
     value: string;
   };
@@ -307,6 +311,12 @@ export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
     handle: string;
+  };
+};
+export type ShopifyProductByIdOperation = {
+  data: { product: ShopifyProduct };
+  variables: {
+    id: string;
   };
 };
 

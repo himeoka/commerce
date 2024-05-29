@@ -6,6 +6,7 @@ import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
+import { RelatedProduct } from 'components/product/related-product';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
@@ -70,7 +71,9 @@ export default async function ProductPage({ params }: { params: { handle: string
       lowPrice: product.priceRange.minVariantPrice.amount
     }
   };
-
+  const relatedProducts = product.related_products
+    ? JSON.parse(product.related_products.value)
+    : undefined;
   return (
     <>
       <script
@@ -94,8 +97,23 @@ export default async function ProductPage({ params }: { params: { handle: string
             <ProductDescription product={product} />
           </div>
         </div>
+        {relatedProducts && (
+          <div className="py-8">
+            <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+            <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+              {relatedProducts.map((id: string) => (
+                <li
+                  key={id}
+                  className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
+                >
+                  <RelatedProduct id={id} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <Suspense>
-          <RelatedProducts id={product.id} />
+          <RecommendProducts id={product.id} />
         </Suspense>
       </div>
       <Suspense>
@@ -105,16 +123,16 @@ export default async function ProductPage({ params }: { params: { handle: string
   );
 }
 
-async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
+async function RecommendProducts({ id }: { id: string }) {
+  const recommendProducts = await getProductRecommendations(id);
 
-  if (!relatedProducts.length) return null;
+  if (!recommendProducts.length) return null;
 
   return (
     <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+      <h2 className="mb-4 text-2xl font-bold">Recommend Products</h2>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
-        {relatedProducts.map((product) => (
+        {recommendProducts.map((product) => (
           <li
             key={product.handle}
             className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"

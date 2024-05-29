@@ -22,6 +22,7 @@ import {
 import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
+  getProductByIdQuery,
   getProductQuery,
   getProductRecommendationsQuery,
   getProductsQuery
@@ -52,6 +53,7 @@ import {
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
+  ShopifyProductByIdOperation,
   ShopifyProductOperation,
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
@@ -430,6 +432,18 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     tags: [TAGS.products],
     variables: {
       handle
+    }
+  });
+
+  return reshapeProduct(res.body.data.product, false);
+}
+
+export async function getProductById(id: string): Promise<Product | undefined> {
+  const res = await shopifyFetch<ShopifyProductByIdOperation>({
+    query: getProductByIdQuery,
+    tags: [TAGS.products],
+    variables: {
+      id
     }
   });
 
