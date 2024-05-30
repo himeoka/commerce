@@ -68,6 +68,10 @@ const productFragment = /* GraphQL */ `
       key
       value
     }
+    sales_period: metafield(namespace: "custom", key: "sales_period") {
+      key
+      value
+    }
   }
   ${imageFragment}
   ${seoFragment}

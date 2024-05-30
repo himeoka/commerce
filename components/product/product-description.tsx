@@ -39,6 +39,11 @@ export function ProductDescription({ product }: { product: Product }) {
         variants={product.variants}
         availableForSale={product.availableForSale}
         tags={product.tags}
+        salesPeriod={
+          product.sales_period && product.sales_period.value
+            ? JSON.parse(product.sales_period.value)
+            : []
+        }
       />
     </>
   );

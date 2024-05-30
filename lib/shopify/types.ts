@@ -18,12 +18,7 @@ export type CartItem = {
   cost: {
     totalAmount: Money;
   };
-  attributes:
-    | {
-        key: string;
-        value: string;
-      }[]
-    | undefined;
+  attributes: Metafield | undefined;
   merchandise: {
     id: string;
     title: string;
@@ -44,6 +39,11 @@ export type Image = {
   altText: string;
   width: number;
   height: number;
+};
+
+export type Metafield = {
+  key: string;
+  value: string;
 };
 
 export type Menu = {
@@ -125,7 +125,7 @@ export type ShopifyCart = {
   };
   lines: Connection<CartItem>;
   totalQuantity: number;
-  attributes: { key: string; value: string }[];
+  attributes: Metafield[];
 };
 
 export type ShopifyCollection = {
@@ -154,14 +154,9 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
-  template_type?: {
-    key: string;
-    value: string;
-  };
-  related_products?: {
-    key: string;
-    value: string;
-  };
+  template_type?: Metafield;
+  related_products?: Metafield;
+  sales_period: Metafield;
 };
 
 export type ShopifyCartOperation = {
@@ -227,10 +222,7 @@ export type ShopifyCartAttributesUpdateOperation = {
   };
   variables: {
     cartId: string;
-    attributes: {
-      key: string;
-      value: string;
-    }[];
+    attributes: Metafield[];
   };
 };
 

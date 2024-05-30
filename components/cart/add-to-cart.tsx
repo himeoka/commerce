@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { Metafield, ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 
@@ -15,12 +15,7 @@ function SubmitButton({
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
-  isYoyaku:
-    | {
-        key: string;
-        value: string;
-      }[]
-    | undefined;
+  isYoyaku: Metafield[] | undefined;
 }) {
   const { pending } = useFormStatus();
   const buttonClasses =
@@ -72,11 +67,13 @@ function SubmitButton({
 export function AddToCart({
   variants,
   availableForSale,
-  tags
+  tags,
+  salesPeriod
 }: {
   variants: ProductVariant[];
   availableForSale: boolean;
   tags: string[] | undefined;
+  salesPeriod: string[];
 }) {
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
@@ -91,8 +88,29 @@ export function AddToCart({
   const isYoyaku =
     tags && tags.includes('予約') ? [{ key: 'is_yoyaku', value: 'true' }] : undefined;
   const actionWithVariant = formAction.bind(null, { selectedVariantId, attributes: isYoyaku });
+  let isSellingNow = true;
+  if (salesPeriod.length) {
+    const salesPeriodDates = salesPeriod.map(function (dateString) {
+      return new Date(dateString);
+    });
+    const now = new Date();
+    if (salesPeriodDates[0] && salesPeriodDates[0] > now) {
+      isSellingNow = false;
+    } else if (salesPeriodDates[1] && salesPeriodDates[1] < now) {
+      isSellingNow = false;
+    }
+  }
+
   return (
     <form action={actionWithVariant}>
+      {salesPeriod.length && salesPeriod.length > 1 && (
+        <div className="mb-5">
+          販売期間 : {salesPeriod[0]} 〜 {salesPeriod[1]}
+        </div>
+      )}
+      {salesPeriod.length && salesPeriod.length === 1 && (
+        <div className="mb-5">販売期間 : {salesPeriod[0]}　〜</div>
+      )}
       {variant && (
         <p className="mb-5">
           {variant.title}
@@ -123,14 +141,18 @@ export function AddToCart({
           }).format(parseFloat(defaultVariant.compareAtPrice.amount))}`}
         </p>
       )}
-      <SubmitButton
-        availableForSale={availableForSale}
-        selectedVariantId={selectedVariantId}
-        isYoyaku={isYoyaku}
-      />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
+      {isSellingNow && (
+        <>
+          <SubmitButton
+            availableForSale={availableForSale}
+            selectedVariantId={selectedVariantId}
+            isYoyaku={isYoyaku}
+          />
+          <p aria-live="polite" className="sr-only" role="status">
+            {message}
+          </p>
+        </>
+      )}
     </form>
   );
 }
