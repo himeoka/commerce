@@ -45,6 +45,10 @@ const productFragment = /* GraphQL */ `
           image {
             ...image
           }
+          palette: metafield(namespace: "custom", key: "palette") {
+            key
+            value
+          }
         }
       }
     }

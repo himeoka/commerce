@@ -109,6 +109,7 @@ export type ProductVariant = {
   price: Money;
   compareAtPrice?: Money;
   image?: Image;
+  palette: Metafield | null;
 };
 
 export type SEO = {

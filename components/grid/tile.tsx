@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ProductVariant } from 'lib/shopify/types';
 import Image from 'next/image';
 import Label from '../label';
 
@@ -8,6 +9,7 @@ export function GridTileImage({
   label,
   isReserve,
   availableForSale,
+  variants,
   ...props
 }: {
   isInteractive?: boolean;
@@ -21,7 +23,16 @@ export function GridTileImage({
     currencyCode: string;
     position?: 'bottom' | 'center';
   };
+  variants?: ProductVariant[];
 } & React.ComponentProps<typeof Image>) {
+  const palette: string[] = [];
+  if (variants && variants.length > 1) {
+    variants.forEach((variant) => {
+      if (variant.palette && variant.palette.value) {
+        palette.push(variant.palette.value);
+      }
+    });
+  }
   return (
     <div
       className={clsx(
@@ -59,6 +70,14 @@ export function GridTileImage({
           position={label.position}
         />
       ) : null}
+
+      {palette.length > 0 && (
+        <div className="absolute bottom-0 right-0 flex  px-4 pb-6 ">
+          {palette.map((color) => (
+            <div className="ml-2 h-5 w-5" key={color} style={{ backgroundColor: color }}></div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
