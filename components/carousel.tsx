@@ -33,6 +33,7 @@ export async function Carousel() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 isReserve={product.tags.includes('予約') ? true : false}
                 availableForSale={product.availableForSale}
+                variants={product.variants}
               />
             </Link>
           </li>

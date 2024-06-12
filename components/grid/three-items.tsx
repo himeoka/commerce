@@ -34,6 +34,7 @@ function ThreeItemGridItem({
             minAmount: item.priceRange.minVariantPrice.amount,
             currencyCode: item.priceRange.maxVariantPrice.currencyCode
           }}
+          variants={item.variants}
         />
       </Link>
     </div>
