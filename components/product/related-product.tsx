@@ -1,12 +1,11 @@
 import { GridTileImage } from 'components/grid/tile';
 import { getProductById } from 'lib/shopify';
-import Link from 'next/link';
 export async function RelatedProduct({ id }: { id: string }) {
   const product = await getProductById(id);
   if (!product) return null;
 
   return (
-    <Link className="relative h-full w-full" href={`/product/${product.handle}`}>
+    <div className="relative h-full w-full">
       <GridTileImage
         alt={product.title}
         label={{
@@ -21,7 +20,8 @@ export async function RelatedProduct({ id }: { id: string }) {
         fill
         sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
         variants={product.variants}
+        handle={product.handle}
       />
-    </Link>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import { getCollectionProducts } from 'lib/shopify';
-import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
 export async function Carousel() {
@@ -19,23 +18,22 @@ export async function Carousel() {
             key={`${product.handle}${i}`}
             className="relative aspect-square h-[30vh] max-h-[275px] w-2/3 max-w-[475px] flex-none md:w-1/3"
           >
-            <Link href={`/product/${product.handle}`} className="relative h-full w-full">
-              <GridTileImage
-                alt={product.title}
-                label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  minAmount: product.priceRange.minVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
-                }}
-                src={product.featuredImage?.url}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                isReserve={product.tags.includes('予約') ? true : false}
-                availableForSale={product.availableForSale}
-                variants={product.variants}
-              />
-            </Link>
+            <GridTileImage
+              alt={product.title}
+              label={{
+                title: product.title,
+                amount: product.priceRange.maxVariantPrice.amount,
+                minAmount: product.priceRange.minVariantPrice.amount,
+                currencyCode: product.priceRange.maxVariantPrice.currencyCode
+              }}
+              src={product.featuredImage?.url}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              isReserve={product.tags.includes('予約') ? true : false}
+              availableForSale={product.availableForSale}
+              variants={product.variants}
+              handle={product.handle}
+            />
           </li>
         ))}
       </ul>

@@ -103,6 +103,7 @@ export function Gallery({
                     active={isActive}
                     isReserve={false}
                     availableForSale={true}
+                    handle={false}
                   />
                 </Link>
               </li>
