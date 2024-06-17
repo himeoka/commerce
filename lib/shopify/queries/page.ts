@@ -13,6 +13,10 @@ const pageFragment = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      slider: metafield(namespace: "custom", key: "slider") {
+        key
+        value
+      }
     }
   }
   ${seoFragment}
