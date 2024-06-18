@@ -270,6 +270,17 @@ export type ShopifyMenuOperation = {
     handle: string;
   };
 };
+export type ShopifyNodesOperation = {
+  data: {
+    nodes: {
+      id: string;
+      image: Image;
+    }[];
+  };
+  variables: {
+    ids: string[];
+  };
+};
 
 export type ShopifyPageOperation = {
   data: { pageByHandle: Page };

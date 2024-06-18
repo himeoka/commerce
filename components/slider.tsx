@@ -1,29 +1,44 @@
 'use client';
-import { Splide, SplideSlide } from 'splide-nextjs/react-splide';
-import 'splide-nextjs/splide/dist/css/themes/splide-default.min.css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+import Image from 'next/image';
 
-export async function Slider() {
+export function Slider({
+  images
+}: {
+  images: {
+    id: string;
+    image: {
+      url: string;
+      altText: string;
+      width: number;
+      height: number;
+    };
+  }[];
+}) {
   return (
     <Splide
       className="mb-10"
       options={{
         rewind: true,
-        width: window.innerWidth,
+        width: '100%',
         perPage: 1,
         type: 'loop',
         autoplay: true,
         perMove: 1
       }}
     >
-      <SplideSlide>
-        <img src="/img/top/summer_2022_1.jpg" alt="Image 1" className="bnr" />
-      </SplideSlide>
-      <SplideSlide>
-        <img src="/img/top/summer_2022_2.jpg" alt="Image 1" className="bnr" />
-      </SplideSlide>
-      <SplideSlide>
-        <img src="/img/top/summer_2022_3.jpg" alt="Image 1" className="bnr" />
-      </SplideSlide>
+      {images.map((image) => (
+        <SplideSlide key={image.id}>
+          <Image
+            alt={image.image.altText}
+            sizes={'(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw'}
+            src={image.image.url}
+            width={image.image.width}
+            height={image.image.height}
+          />
+        </SplideSlide>
+      ))}
     </Splide>
   );
 }

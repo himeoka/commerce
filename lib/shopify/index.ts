@@ -20,6 +20,7 @@ import {
   getCollectionsQuery
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
+import { getNodesQuery } from './queries/nodes';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductByIdQuery,
@@ -50,6 +51,7 @@ import {
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyMenuOperation,
+  ShopifyNodesOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -400,6 +402,15 @@ export async function getPages(): Promise<Page[]> {
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
+}
+
+export async function getNodes(ids: string[]): Promise<any> {
+  const res = await shopifyFetch<ShopifyNodesOperation>({
+    query: getNodesQuery,
+    variables: { ids }
+  });
+
+  return res.body.data.nodes;
 }
 
 export async function getBlog(handle: string): Promise<any> {
