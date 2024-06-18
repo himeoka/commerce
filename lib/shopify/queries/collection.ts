@@ -1,6 +1,5 @@
 import productFragment from '../fragments/product';
 import seoFragment from '../fragments/seo';
-
 const collectionFragment = /* GraphQL */ `
   fragment collection on Collection {
     handle
@@ -10,6 +9,12 @@ const collectionFragment = /* GraphQL */ `
       ...seo
     }
     updatedAt
+    image {
+      url
+      height
+      width
+      altText
+    }
   }
   ${seoFragment}
 `;

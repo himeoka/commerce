@@ -1,6 +1,8 @@
 import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
+import { CollectionList } from 'components/collection-list';
+import { TopItems } from 'components/grid/top-items';
 import Footer from 'components/layout/footer';
+
 import { Slider } from 'components/slider';
 import { getNodes, getPage } from 'lib/shopify';
 import { Suspense } from 'react';
@@ -31,8 +33,9 @@ export default async function HomePage() {
   return (
     <>
       {slides && <Slider images={images} />}
-      <ThreeItemGrid />
+      <TopItems />
       <Suspense>
+        <CollectionList />
         <Carousel />
         <Suspense>
           <Footer />

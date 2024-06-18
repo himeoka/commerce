@@ -25,7 +25,8 @@ export function Slider({
         perPage: 1,
         type: 'loop',
         autoplay: true,
-        perMove: 1
+        perMove: 1,
+        fixedHeight: '80vh'
       }}
     >
       {images.map((image) => (
