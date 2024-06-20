@@ -17,6 +17,14 @@ const pageFragment = /* GraphQL */ `
         key
         value
       }
+      banner: metafield(namespace: "custom", key: "banner") {
+        key
+        value
+      }
+      news: metafield(namespace: "custom", key: "news") {
+        key
+        value
+      }
     }
   }
   ${seoFragment}

@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 export async function CollectionList() {
   const collections = await getCollections();
-  console.log(collections);
   return (
     <div className="mx-auto mt-20 grid max-w-screen-2xl">
       <h1 className="mb-10 text-center text-xl">Collection List</h1>

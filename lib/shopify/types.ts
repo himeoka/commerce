@@ -66,6 +66,8 @@ export type Page = {
   createdAt: string;
   updatedAt: string;
   slider?: Metafield;
+  banner?: Metafield;
+  news?: Metafield;
 };
 
 export type Article = {

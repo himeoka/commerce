@@ -10,6 +10,12 @@ export const getNodesQuery = /* GraphQL */ `
           altText
         }
       }
+      ... on Metaobject {
+        fields {
+          key
+          value
+        }
+      }
     }
   }
 `;
